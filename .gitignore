@@ -1,6 +1,8 @@
 # Ignore validation and temporary artifact directories
 can be deleted/
 Archive/
+All pages/
 node_modules/
 *.log
 .DS_Store
+Thumbs.db
