@@ -562,7 +562,7 @@ function initStatCounters() {
           const targetVal = parseFloat(rawTarget);
           const originalText = num.textContent;
           const prefix = originalText.startsWith('$') ? '$' : '';
-          const suffix = originalText.replace(/[\$\d\.]/g, '');
+          const suffix = originalText.replace(/[\$\d\.,]/g, '');
 
           let start = 0;
           const duration = 2000; // ms
@@ -576,7 +576,7 @@ function initStatCounters() {
               start = targetVal;
               clearInterval(timer);
             }
-            const displayVal = isFloat ? start.toFixed(1) : Math.floor(start);
+            const displayVal = isFloat ? start.toFixed(1) : Math.floor(start).toLocaleString('en-US');
             num.textContent = `${prefix}${displayVal}${suffix}`;
           }, stepTime);
         });
