@@ -3721,11 +3721,25 @@ img {
 @media (max-width: 768px) {
   .orbit-radar-wrapper {
     height: 380px;
+    max-width: 100%;
+    overflow: hidden;
   }
 
-  .radar-ring-2 { width: 280px; height: 280px; }
-  .radar-ring-3 { width: 340px; height: 340px; }
-  .orbit-track-rotate { width: 280px; height: 280px; }
+  .radar-ring-1 { width: 220px; height: 220px; }
+  .radar-ring-2 { width: 270px; height: 270px; }
+  .radar-ring-3 { width: 330px; height: 330px; max-width: calc(100vw - 30px); }
+  .orbit-track-rotate { width: 270px; height: 270px; }
+
+  .orbit-node {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.65rem;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+  .node-1 { top: -14px; left: 50%; transform: translateX(-50%); }
+  .node-2 { bottom: -14px; left: 50%; transform: translateX(-50%); }
+  .node-3 { top: 50%; left: -20px; transform: translateY(-50%); }
+  .node-4 { top: 50%; right: -20px; transform: translateY(-50%); }
 
   .captable-showcase-box {
     padding: 1.75rem 1.25rem;
