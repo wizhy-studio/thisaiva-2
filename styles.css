@@ -3565,6 +3565,14 @@ img {
   margin-bottom: 0.25rem;
 }
 
+.orbit-hub-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  margin-bottom: 0.25rem;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.4));
+}
+
 .orbit-center-hub span {
   font-size: 0.65rem;
   font-weight: 700;
