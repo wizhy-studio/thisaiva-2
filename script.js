@@ -513,25 +513,23 @@ function initMobileMenu() {
 
   if (hamburgerBtn && navLinks) {
     hamburgerBtn.addEventListener('click', () => {
-      const isOpen = navLinks.style.display === 'flex';
-      navLinks.style.display = isOpen ? 'none' : 'flex';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '100%';
-      navLinks.style.left = '0';
-      navLinks.style.right = '0';
-      navLinks.style.background = 'rgba(6, 26, 21, 0.98)';
-      navLinks.style.backdropFilter = 'blur(20px)';
-      navLinks.style.padding = '2rem';
-      navLinks.style.borderBottom = '1px solid var(--border-gold)';
-      
-      hamburgerBtn.innerHTML = isOpen ? '<i class="fa-solid fa-bars"></i>' : '<i class="fa-solid fa-xmark"></i>';
+      const isOpen = navLinks.classList.contains('active');
+      if (isOpen) {
+        navLinks.classList.remove('active');
+        navLinks.style.display = 'none';
+        hamburgerBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      } else {
+        navLinks.classList.add('active');
+        navLinks.style.display = 'flex';
+        hamburgerBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      }
     });
 
-    // Close menu on link click
-    navLinks.querySelectorAll('a').forEach(link => {
+    // Close menu on navigation link click (except dropdown trigger)
+    navLinks.querySelectorAll('a:not(.dropdown-trigger)').forEach(link => {
       link.addEventListener('click', () => {
         if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
           navLinks.style.display = 'none';
           hamburgerBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
         }
@@ -588,15 +586,44 @@ function initStatCounters() {
 }
 
 /* --------------------------------------------------------------------------
-   4. LOCATION CARDS INTERACTIVITY
+   4. LOCATION CARDS & REGIONAL TABS INTERACTIVITY
    -------------------------------------------------------------------------- */
 function initGlobalMap() {
   const cards = document.querySelectorAll('.location-card');
-
   cards.forEach(card => {
     card.addEventListener('click', () => {
       cards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
+    });
+  });
+
+  // Region tabs bar (Desktop filter & Mobile compactness)
+  const tabBtns = document.querySelectorAll('.region-tab-btn');
+  const regionGroups = document.querySelectorAll('.region-group[data-region]');
+  if (!tabBtns.length || !regionGroups.length) return;
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const target = btn.getAttribute('data-region-target');
+      regionGroups.forEach(group => {
+        const region = group.getAttribute('data-region');
+        if (target === 'all' || region === target) {
+          group.style.display = 'block';
+          setTimeout(() => {
+            group.style.opacity = '1';
+            group.style.transform = 'translateY(0)';
+          }, 30);
+        } else {
+          group.style.opacity = '0';
+          group.style.transform = 'translateY(10px)';
+          setTimeout(() => {
+            group.style.display = 'none';
+          }, 200);
+        }
+      });
     });
   });
 }
@@ -709,25 +736,44 @@ function initBackToTop() {
     }
   }, { passive: true });
 
-  btn.addEventListener('click', () => {
-    const duration = 1600; // 1.6 seconds for slow luxury glide to top
-    const start = window.scrollY || document.documentElement.scrollTop;
-    const startTime = performance.now();
-
-    function scrollStep(timestamp) {
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Easing function (easeOutCubic)
-      const ease = 1 - Math.pow(1 - progress, 3);
-      
-      window.scrollTo(0, start * (1 - ease));
-
-      if (progress < 1) {
-        requestAnimationFrame(scrollStep);
-      }
+  let isScrolling = false;
+  const scrollToTopAction = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
+    if (isScrolling) return;
+    isScrolling = true;
 
-    requestAnimationFrame(scrollStep);
-  });
+    // Fast, buttery smooth scroll to top across all platforms
+    try {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      setTimeout(() => { isScrolling = false; }, 600);
+    } catch (err) {
+      const duration = 600;
+      const start = window.scrollY || document.documentElement.scrollTop;
+      const startTime = performance.now();
+
+      function scrollStep(timestamp) {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, start * (1 - ease));
+        if (progress < 1) {
+          requestAnimationFrame(scrollStep);
+        } else {
+          isScrolling = false;
+        }
+      }
+      requestAnimationFrame(scrollStep);
+    }
+  };
+
+  btn.addEventListener('click', scrollToTopAction);
+  btn.addEventListener('touchend', (e) => {
+    scrollToTopAction(e);
+  }, { passive: false });
 }

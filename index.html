@@ -451,7 +451,7 @@
   <section class="global-section" id="media">
     <div class="container">
       
-      <div class="section-header" style="max-width: 720px; margin-bottom: 3.5rem;">
+      <div class="section-header" style="max-width: 720px; margin-bottom: 2rem;">
         <span class="section-eyebrow"><i class="fa-solid fa-earth-americas"></i> GLOBAL PRESENCE</span>
         <h2 style="color:#ffffff;">Global Reach. Local Teams.</h2>
         <p style="color:var(--text-light-muted); margin-top:0.75rem;">
@@ -459,8 +459,27 @@
         </p>
       </div>
 
+      <!-- Regional Office Selector Tabs (Mobile Optimized & Desktop Filter) -->
+      <div class="region-tabs-bar" id="regionTabsBar">
+        <button class="region-tab-btn active" data-region-target="all">
+          <span>All Regions</span> <span class="tab-count-badge">35+</span>
+        </button>
+        <button class="region-tab-btn" data-region-target="us">
+          <img src="assets/flags/us.svg" alt="US" class="tab-flag"> <span>United States</span> <span class="tab-count-badge">6</span>
+        </button>
+        <button class="region-tab-btn" data-region-target="eu">
+          <img src="assets/flags/eu.svg" alt="EU" class="tab-flag"> <span>Europe</span> <span class="tab-count-badge">10</span>
+        </button>
+        <button class="region-tab-btn" data-region-target="apac">
+          <img src="assets/flags/apac.svg" alt="APAC" class="tab-flag"> <span>Asia Pacific</span> <span class="tab-count-badge">4</span>
+        </button>
+        <button class="region-tab-btn" data-region-target="americas">
+          <img src="assets/flags/americas.svg" alt="Americas" class="tab-flag"> <span>Americas</span> <span class="tab-count-badge">3</span>
+        </button>
+      </div>
+
       <!-- REGION 1: UNITED STATES -->
-      <div class="region-group">
+      <div class="region-group" data-region="us">
         <div class="region-header">
           <div class="region-header-icon">
             <img src="assets/flags/us.svg" alt="United States Flag" width="44" height="44">
@@ -597,7 +616,7 @@
       </div>
 
       <!-- REGION 2: EUROPE -->
-      <div class="region-group">
+      <div class="region-group" data-region="eu">
         <div class="region-header">
           <div class="region-header-icon">
             <img src="assets/flags/eu.svg" alt="Europe Flag" width="44" height="44">
@@ -814,7 +833,7 @@
       </div>
 
       <!-- REGION 3: ASIA PACIFIC -->
-      <div class="region-group">
+      <div class="region-group" data-region="apac">
         <div class="region-header">
           <div class="region-header-icon">
             <img src="assets/flags/apac.svg" alt="Asia Pacific Icon" width="44" height="44">
@@ -911,7 +930,7 @@
       </div>
 
       <!-- REGION 4: NORTH AND SOUTH AMERICA -->
-      <div class="region-group">
+      <div class="region-group" data-region="americas">
         <div class="region-header">
           <div class="region-header-icon">
             <img src="assets/flags/americas.svg" alt="North and South America" width="44" height="44">
@@ -1003,7 +1022,7 @@
         <form class="newsletter-form" id="newsletterForm">
           <div class="lead-magnet__input-group">
             <svg class="lead-magnet__input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
-            <input type="email" id="newsletterEmail" placeholder="Enter your institutional work email..." required autocomplete="email">
+            <input type="email" id="newsletterEmail" placeholder="Enter your email ID" required autocomplete="email">
             <button type="submit" class="btn-gold-shimmer" id="newsletterSubscribeBtn">
               <span>Subscribe</span> <i class="fa-solid fa-arrow-right"></i>
             </button>
