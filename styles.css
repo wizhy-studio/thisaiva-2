@@ -2459,6 +2459,15 @@ img {
   pointer-events: none;
 }
 
+.why-choose-section .section-header h2 {
+  color: var(--text-light);
+}
+
+.why-choose-section .section-header p {
+  color: var(--text-light-muted);
+}
+
+
 .why-choose-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
